@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class FindFactors {
+
+	public static void findFactors(long rangeStart, long rangeEnd,
+			long numberToFindFactorsOf) {
+		
+		System.out.println("Finding factors of " + numberToFindFactorsOf
+				+ " in range " + rangeStart + "-" + rangeEnd + " (range size "
+				+ (rangeEnd - rangeStart) + ")");
+		for (long i = rangeStart; i <= rangeEnd; i++) {
+			if (numberToFindFactorsOf % i == 0) {
+				System.out.println(i + " is a factor");
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+
+		System.out
+				.println("Welcome to factor search!  Enter your query in the form NUMBER_TO_FACTOR MIN_RANGE MAX_RANGE NUMBER_OF_THREADS");
+		Scanner s = new Scanner(System.in);
+		final long numberToFactor = s.nextLong();
+		final long startRange = s.nextLong();
+		final long endRange = s.nextLong();
+		final long numberOfThreads = s.nextLong();
+		for (int i = 0; i < numberOfThreads; i++) {
+			Runnable run = new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub.
+					findFactors(startRange, endRange/numberOfThreads, numberToFactor);
+				}
+
+			};
+		}
+
+		// findFactors(startRange,endRange,numberToFactor);
+		findFactorsWithThreads(numberOfThreads);
+		System.out.println("Factor finding complete");
+
+	}
+
+	public static void findFactorsWithThreads(long numberOfThreads) {
+		for (int i = 0; i < numberOfThreads; i++) {
+			Thread t1 = new Thread();
+			t1.start();
+		}
+	}
+
+	private class ThreadFactor implements Runnable {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub.
+			//findFactors()
+		}
+	}
+}
